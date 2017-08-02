@@ -14,7 +14,7 @@ const router = new Router({
       component: ListView
     },
     {
-      path: './article/:id',
+      path: '/article/:id',
       name: 'article',
       component: ArticleView
     }

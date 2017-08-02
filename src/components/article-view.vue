@@ -1,23 +1,31 @@
 <template>
   <div class="article-view">
-    <div class="article-close">
+    <div class="article-view-return">
       <router-link to="/">
         Back
       </router-link>
     </div>
-    <h2 class="article-headline"></h2>
-    <p class="article-meta"></p>
-    <div class="article-content" v-html="story">
-    </div>
+    <h2 class="article-view-title">{{articleTitle}}</h2>
+    <p class="article-view-meta">
+      Created {{articleTime}}
+    </p>
+    <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
   </div>
 </template>
 <script>
-import axios from 'axios';
+import API from '../api';
+import VueMarkdown from 'vue-markdown';
+import moment from 'moment';
 export default {
   name: 'article',
-  data: function () {
+  components: {
+    VueMarkdown
+  },
+  data() {
     return {
-      story: '<h2>test</h2>'
+      articleTitle: 'N/A',
+      articleTime: 'N/A',
+      articleContent: 'N/A'
     }
   },
   created: function () {
@@ -30,15 +38,34 @@ export default {
   },
   methods: {
     requestArticle: function (id) {
-      console.log(id);
-      let self = this;
-      // axios.get('/api/story'+id)
-      // .then(function(story){
-      //   self.story = story;
-      // })
-      // .catch(console.log(error));
-      self.story = '<h2>I am some stories</h2>' + id;
+      API.getArticle(id)
+        .then(response => {
+          let data = response.data;
+          this.articleTitle = data.title;
+          this.articleTime = moment(data.created_at, 'MM-DD-YYYY');
+          this.articleContent = data.body;
+        })
+        .catch(error => {
+          this.articleTitle = 'Oh, there is a error';
+          this.articleTime = 'N/A';
+          this.articleContent = 'N/A';
+        });
     }
   }
 }
 </script>
+
+<style>
+.article-view {
+  width: 80%;
+  margin: auto;
+}
+
+.article-view-title {
+  font-size: 2rem;
+}
+
+.article-view-content {
+  text-align: left;
+}
+</style>
