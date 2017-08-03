@@ -1,31 +1,37 @@
 <template>
-  <div class="article-view">
-    <div class="article-view-return">
-      <router-link to="/">
-        Back
-      </router-link>
+  <div>
+    <div v-if="received" class="article-view">
+      <div class="article-view-return">
+        <router-link to="/">
+          Back
+        </router-link>
+      </div>
+      <h2 class="article-view-title">{{articleTitle}}</h2>
+      <p class="article-view-meta">
+        Created {{articleTime}}
+      </p>
+      <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
     </div>
-    <h2 class="article-view-title">{{articleTitle}}</h2>
-    <p class="article-view-meta">
-      Created {{articleTime}}
-    </p>
-    <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
+    <loading v-else></loading>
   </div>
 </template>
 <script>
 import API from '../api';
 import VueMarkdown from 'vue-markdown';
 import moment from 'moment';
+import loading from './loading.vue';
 export default {
   name: 'article',
   components: {
-    VueMarkdown
+    VueMarkdown,
+    loading
   },
   data() {
     return {
       articleTitle: 'N/A',
       articleTime: 'N/A',
-      articleContent: 'N/A'
+      articleContent: 'N/A',
+      received: false
     }
   },
   created: function () {
@@ -38,17 +44,20 @@ export default {
   },
   methods: {
     requestArticle: function (id) {
+      this.received = false;
       API.getArticle(id)
         .then(response => {
           let data = response.data;
           this.articleTitle = data.title;
           this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
           this.articleContent = data.body;
+          this.received = true;
         })
         .catch(error => {
           this.articleTitle = 'Oh, there is a error';
           this.articleTime = 'N/A';
           this.articleContent = 'N/A';
+          this.received = true;
         });
     }
   }

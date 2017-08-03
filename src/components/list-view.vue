@@ -1,25 +1,32 @@
 <template>
-  <div class="list-view">
-    <h2 class="list-view-title">Article List</h2>
-    <ul>
-      <li class="list-view-item" v-for="article in articles" :key="article.id">
-        <P class="list-view-item-time">{{article.articleTime}}</P>
-        <h3>
-          <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
-        </h3>
-      </li>
-    </ul>
+  <div>
+    <div v-if="received" class="list-view">
+      <h2 class="list-view-title">Article List</h2>
+      <ul>
+        <li class="list-view-item" v-for="article in articles" :key="article.id">
+          <P class="list-view-item-time">{{article.articleTime}}</P>
+          <h3>
+            <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
+          </h3>
+        </li>
+      </ul>
+    </div>
+    <loading v-else></loading>
   </div>
 </template>
 <script>
 import API from '../api';
 import moment from 'moment';
-
+import loading from './loading.vue';
 export default {
   name: 'list-view',
+  components: {
+    loading
+  },
   data() {
     return {
-      articles: []
+      articles: [],
+      received: false
     }
   },
   created() {
@@ -27,6 +34,7 @@ export default {
   },
   methods: {
     getArticles() {
+      this.received = false;
       API.getArticleList()
         .then(response => {
           let list = response.data.map(element => {
@@ -37,9 +45,11 @@ export default {
               articleTime: moment(element.created_at).format('MMM YYYY')
             }
           })
+          this.received = true;
           this.articles = list;
         })
         .catch(error => {
+          console.log(error);
           return;
         });
     }
