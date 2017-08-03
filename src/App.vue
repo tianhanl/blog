@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <h1>TL's Blog</h1>
+      <h1 class="blog-title">TL's Blog</h1>
     </header>
     <router-view></router-view>
   </div>
@@ -9,12 +9,7 @@
 
 <script>
 export default {
-  name: 'app',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  name: 'app'
 }
 </script>
 
@@ -45,5 +40,18 @@ li {
 
 a {
   color: #42b983;
+  text-decoration: none;
+  transition: all 0.1s;
+}
+
+a:hover {
+  color: #2C7A57;
+}
+
+.blog-title {
+  font-size: 6rem;
+  margin: 1rem;
+  margin-top: -2rem;
+  font-weight: 500;
 }
 </style>
