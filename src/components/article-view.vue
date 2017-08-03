@@ -42,7 +42,7 @@ export default {
         .then(response => {
           let data = response.data;
           this.articleTitle = data.title;
-          this.articleTime = moment(data.created_at, 'MM-DD-YYYY');
+          this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
           this.articleContent = data.body;
         })
         .catch(error => {
@@ -58,14 +58,31 @@ export default {
 <style>
 .article-view {
   width: 80%;
+  max-width: 660px;
   margin: auto;
+  position: relative;
 }
 
 .article-view-title {
   font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.article-view-return {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.article-view-meta {
+  margin: 0;
+  padding: 0;
+  color: #A9B6C5;
 }
 
 .article-view-content {
   text-align: left;
+  padding: 1em;
 }
 </style>
