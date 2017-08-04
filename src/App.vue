@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <header>
-      <h1 class="blog-title">TL's Blog</h1>
+      <h1 class="blog-title">
+        <router-link :to="{name: 'list'}">TL's Blog
+        </router-link>
+      </h1>
     </header>
     <router-view></router-view>
   </div>
@@ -25,7 +28,7 @@ export default {
 
 h1,
 h2 {
-  font-weight: normal;
+  font-weight: bold;
 }
 
 ul {
@@ -52,6 +55,16 @@ a:hover {
   font-size: 6rem;
   margin: 1rem;
   margin-top: -2rem;
-  font-weight: 500;
+  font-weight: 100;
+}
+
+.blog-title a {
+  color: #2C3E50;
+}
+
+@media (max-width: 500px) {
+  .blog-title {
+    font-size: 2.5rem;
+  }
 }
 </style>
