@@ -1,7 +1,6 @@
 <template>
   <div>
     <div v-if="received" class="list-view">
-      <h2 class="list-view-title">Article List</h2>
       <ul>
         <li class="list-view-item" v-for="article in articles" :key="article.id">
           <P class="list-view-item-time">{{article.articleTime}}</P>
@@ -69,19 +68,16 @@ export default {
   display: block;
   padding: 1rem 0 1.5rem 0;
   margin-bottom: 1em;
+  text-align: left;
   display: flex;
 }
 
-.list-view-item-title {
-  font-size: 2rem;
-}
 
 .list-view-item-time {
   flex: 0 0 20%;
   color: #A9B6C5;
   margin: 0;
   padding: 0;
-  text-align: left;
 }
 
 .list-view-item h3 {
@@ -90,6 +86,16 @@ export default {
   margin: 0;
   margin-top: -0.25em;
   padding: 0;
+}
+
+@media (max-width: 500px) {
+  .list-view-item {
+    flex-direction: column;
+    padding: 0.5rem 0 0.75rem 0;
+  }
+  .list-view-item h3 {
+    margin-top: 0;
+  }
 }
 </style>
 

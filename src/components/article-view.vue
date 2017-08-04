@@ -1,16 +1,16 @@
 <template>
   <div>
     <div v-if="received" class="article-view">
-      <div class="article-view-return">
-        <router-link to="/">
-          Back
-        </router-link>
-      </div>
       <h2 class="article-view-title">{{articleTitle}}</h2>
       <p class="article-view-meta">
         Created {{articleTime}}
       </p>
       <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
+      <div class="article-view-return">
+        <router-link to="/">
+          Back
+        </router-link>
+      </div>
     </div>
     <loading v-else></loading>
   </div>
@@ -70,6 +70,8 @@ export default {
   max-width: 660px;
   margin: auto;
   position: relative;
+  text-align: left;
+  padding: 1rem;
 }
 
 .article-view-title {
@@ -79,9 +81,8 @@ export default {
 }
 
 .article-view-return {
-  position: absolute;
-  top: 1em;
-  right: 1em;
+  position: relative;
+  float: right;
 }
 
 .article-view-meta {
@@ -90,8 +91,11 @@ export default {
   color: #A9B6C5;
 }
 
-.article-view-content {
-  text-align: left;
-  padding: 1em;
+.article-view-content {}
+
+@media (max-width: 500px) {
+  article-view {
+    padding: 0.5rem;
+  }
 }
 </style>
