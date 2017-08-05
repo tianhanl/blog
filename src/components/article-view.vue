@@ -96,6 +96,7 @@ export default {
 @media (max-width: 500px) {
   article-view {
     padding: 0.5rem;
+    width: 90%;
   }
 }
 </style>

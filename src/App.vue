@@ -5,6 +5,11 @@
         <router-link :to="{name: 'list'}">TL's Blog
         </router-link>
       </h1>
+      <nav>
+        <a href="https://github.com/tianhanl" target="_blank">
+          <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+      </nav>
     </header>
     <router-view></router-view>
   </div>
@@ -51,9 +56,19 @@ a:hover {
   color: #2C7A57;
 }
 
+nav>a {
+  color: #A9B6C5;
+  font-size: 2rem;
+  padding: 0;
+}
+
+nav>a:hover {
+  color: #A9B6C5;
+}
+
 .blog-title {
   font-size: 6rem;
-  margin: 1rem;
+  margin: 0.1em;
   margin-top: -2rem;
   font-weight: 100;
 }
@@ -65,6 +80,14 @@ a:hover {
 @media (max-width: 500px) {
   .blog-title {
     font-size: 2.5rem;
+  }
+
+  nav>a {
+    font-size: 1.5rem;
+  }
+
+  ul {
+    margin: 0;
   }
 }
 </style>
