@@ -47,15 +47,17 @@ export default {
 
 
 
+
 /*Transition  */
 
 .fade-enter-active {
-  transition: all .5s ease-in;
+  transition: all .3s ease-in;
 }
 
 .fade-enter {
   opacity: 0;
 }
+
 
 
 

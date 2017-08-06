@@ -13,8 +13,9 @@
           </router-link>
         </div>
       </div>
-      <loading v-else></loading>
     </transition>
+    <loading v-if="!received"></loading>
+  
   </div>
 </template>
 <script>
