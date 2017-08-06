@@ -12,6 +12,7 @@
       </nav>
     </header>
     <router-view></router-view>
+  
   </div>
 </template>
 
@@ -30,6 +31,50 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Transition  */
+
+.fade-enter-active {
+  transition: all .3s ease-in;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*General  */
 
 h1,
 h2 {
