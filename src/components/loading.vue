@@ -1,6 +1,6 @@
 <template>
   <div class="loading">
-    <vue-loading type="beat" color="#42B983" :size="{width: '50px', height:'50px'}"></vue-loading>
+    <vue-loading type="beat" color="#F07883" :size="{width: '50px', height:'50px'}"></vue-loading>
   </div>
 </template>
 <script>

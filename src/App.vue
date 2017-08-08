@@ -28,9 +28,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #515151;
+
   margin-top: 60px;
 }
+
+
 
 
 
@@ -74,6 +77,8 @@ export default {
 
 
 
+
+
 /*General  */
 
 h1,
@@ -92,17 +97,20 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: #F05967;
+
+
   text-decoration: none;
   transition: all 0.1s;
 }
 
 a:hover {
-  color: #2C7A57;
+  color: #F07883;
 }
 
 nav>a {
-  color: #A9B6C5;
+  color: #D1D1D1;
+
   font-size: 2rem;
   padding: 0;
 }
@@ -119,7 +127,7 @@ nav>a:hover {
 }
 
 .blog-title a {
-  color: #2C3E50;
+  color: #515151;
 }
 
 @media (max-width: 500px) {
