@@ -3,7 +3,7 @@
     <transition name="fade">
       <div v-if="received" class="list-view">
         <ul>
-          <li class="list-view-item" v-for="article in articles" :key="article.id">
+          <li class="list-view-item" v-for="article in articleList" :key="article.id">
             <P class="list-view-item-time">{{article.articleTime}}</P>
             <h3>
               <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
@@ -29,8 +29,15 @@ export default {
   },
   data() {
     return {
-      articles: [],
       received: false
+    }
+  },
+  computed: {
+    articleList() {
+      return this.$store.state.articleList;
+    },
+    accessTime() {
+      return this.$store.state.accessTime;
     }
   },
   created() {
@@ -38,6 +45,11 @@ export default {
   },
   methods: {
     getArticles() {
+      if (this.$store.state.accessTime) {
+        this.received = true;
+        return;
+      }
+      let today = new Date().getDate();
       this.received = false;
       API.getArticleList()
         .then(response => {
@@ -50,7 +62,10 @@ export default {
             }
           })
           this.received = true;
-          this.articles = list;
+          this.$store.commit('addArticleList', {
+            accessTime: today,
+            articleList: list
+          })
         })
         .catch(error => {
           console.log(error);
@@ -98,6 +113,10 @@ export default {
     flex-direction: column;
     padding: 0.5rem 0 0.75rem 0;
   }
+  .list-view-item-time {
+    margin-bottom: 0.2rem;
+  }
+
   .list-view-item h3 {
     margin-top: 0;
   }

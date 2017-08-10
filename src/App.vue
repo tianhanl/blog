@@ -12,7 +12,6 @@
       </nav>
     </header>
     <router-view></router-view>
-  
   </div>
 </template>
 
@@ -51,6 +50,7 @@ export default {
 
 
 
+
 /*Transition  */
 
 .fade-enter-active {
@@ -60,6 +60,7 @@ export default {
 .fade-enter {
   opacity: 0;
 }
+
 
 
 
