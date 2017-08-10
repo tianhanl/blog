@@ -98,6 +98,10 @@ export default {
     flex-direction: column;
     padding: 0.5rem 0 0.75rem 0;
   }
+  .list-view-item-time {
+    margin-bottom: 0.2rem;
+  }
+
   .list-view-item h3 {
     margin-top: 0;
   }
