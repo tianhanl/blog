@@ -37,6 +37,11 @@ export default {
       received: false
     }
   },
+  computed: {
+    articles() {
+      return this.$store.state.articles;
+    }
+  },
   created: function () {
     this.requestArticle(this.$route.params.id);
   },
@@ -47,21 +52,32 @@ export default {
   },
   methods: {
     requestArticle: function (id) {
-      this.received = false;
-      API.getArticle(id)
-        .then(response => {
-          let data = response.data;
-          this.articleTitle = data.title;
-          this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
-          this.articleContent = data.body;
-          this.received = true;
-        })
-        .catch(error => {
-          this.articleTitle = 'Oh, there is a error';
-          this.articleTime = 'N/A';
-          this.articleContent = 'N/A';
-          this.received = true;
-        });
+      if (this.articles.find(element => element.number === id)) {
+        let data = this.articles.find(element => element.number === id);
+        this.articleTitle = data.title;
+        this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
+        this.articleContent = data.body;
+        this.received = true;
+      } else {
+        this.received = false;
+        API.getArticle(id)
+          .then(response => {
+            let data = response.data;
+            this.articleTitle = data.title;
+            this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
+            this.articleContent = data.body;
+            this.received = true;
+            this.$store.commit('addArticle', {
+              articleData: data
+            })
+          })
+          .catch(error => {
+            this.articleTitle = 'Oh, there is a error';
+            this.articleTime = 'N/A';
+            this.articleContent = 'N/A';
+            this.received = true;
+          });
+      }
     }
   }
 }
