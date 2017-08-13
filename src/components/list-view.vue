@@ -1,21 +1,16 @@
 <template>
   <div>
-    <transition name="fade">
-      <div v-if="received" class="list-view">
-        <ul>
-          <li class="list-view-item" v-for="article in articleList" :key="article.id">
-            <P class="list-view-item-time">{{article.articleTime}}</P>
-            <h3>
-              <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
-            </h3>
-          </li>
-        </ul>
-      </div>
-  
-    </transition>
-  
+    <div v-if="received" class="list-view">
+      <ul>
+        <li class="list-view-item" v-for="article in articleList" :key="article.id">
+          <P class="list-view-item-time">{{article.articleTime}}</P>
+          <h3>
+            <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
+          </h3>
+        </li>
+      </ul>
+    </div>
     <loading v-if="!received"></loading>
-  
   </div>
 </template>
 <script>

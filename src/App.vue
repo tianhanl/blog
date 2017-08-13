@@ -11,7 +11,11 @@
         </a>
       </nav>
     </header>
-    <router-view></router-view>
+  
+    <transition name="fade" mode="out-in" appear>
+  
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -34,49 +38,17 @@ export default {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*Transition  */
 
-.fade-enter-active {
-  transition: all .3s ease-in;
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .2s ease-in;
 }
 
-.fade-enter {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
