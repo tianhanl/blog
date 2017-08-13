@@ -1,19 +1,18 @@
 <template>
   <div>
-    <transition name="fade">
-      <div v-if="received" class="article-view">
-        <h2 class="article-view-title">{{articleTitle}}</h2>
-        <p class="article-view-meta">
-          Created {{articleTime}}
-        </p>
-        <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
-        <div class="article-view-return">
-          <router-link to="/">
-            Back
-          </router-link>
-        </div>
+  
+    <div v-if="received" class="article-view">
+      <h2 class="article-view-title">{{articleTitle}}</h2>
+      <p class="article-view-meta">
+        Created {{articleTime}}
+      </p>
+      <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
+      <div class="article-view-return">
+        <router-link to="/">
+          Back
+        </router-link>
       </div>
-    </transition>
+    </div>
     <loading v-if="!received"></loading>
   
   </div>
