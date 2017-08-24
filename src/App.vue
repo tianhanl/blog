@@ -2,26 +2,38 @@
   <div id="app">
     <header>
       <h1 class="blog-title">
-        <router-link :to="{name: 'list'}">TL's Blog
+        <router-link :to="{name: 'list'}">{{blogTitle}}
         </router-link>
       </h1>
       <nav>
-        <a href="https://github.com/tianhanl" target="_blank">
+        <a :href="profileAddress" target="_blank">
           <i class="fa fa-github" aria-hidden="true"></i>
         </a>
       </nav>
     </header>
-  
+
     <transition name="fade" mode="out-in" appear>
-  
+
       <router-view></router-view>
     </transition>
   </div>
 </template>
 
 <script>
+import config from './config';
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      blogTitle: config.blogTitle,
+      username: config.username
+    }
+  },
+  computed: {
+    profileAddress() {
+      return `https://github.com/${this.username}`
+    }
+  }
 }
 </script>
 
@@ -38,6 +50,13 @@ export default {
 
 
 
+
+
+
+
+
+
+
 /*Transition  */
 
 .fade-enter-active,
@@ -49,6 +68,13 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
+
+
+
+
+
+
 
 
 
