@@ -57,6 +57,12 @@ export default {
 
 
 
+
+
+
+
+
+
 /*Transition  */
 
 .fade-enter-active,
@@ -68,6 +74,12 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
+
+
+
+
+
 
 
 
@@ -97,8 +109,6 @@ li {
 
 a {
   color: #F05967;
-
-
   text-decoration: none;
   transition: all 0.1s;
 }
@@ -109,8 +119,7 @@ a:hover {
 
 nav>a {
   color: #D1D1D1;
-
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 0;
 }
 
@@ -119,9 +128,8 @@ nav>a:hover {
 }
 
 .blog-title {
-  font-size: 6rem;
+  font-size: 2.5rem;
   margin: 0.1em;
-  margin-top: -2rem;
   font-weight: 100;
 }
 
@@ -131,6 +139,7 @@ nav>a:hover {
 
 @media (max-width: 500px) {
   .blog-title {
+    margin-top: -1rem;
     font-size: 2.5rem;
   }
 
