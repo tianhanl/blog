@@ -11,11 +11,13 @@
         </a>
       </nav>
     </header>
-
     <transition name="fade" mode="out-in" appear>
-
-      <router-view></router-view>
+      <router-view class="sticky-main"></router-view>
     </transition>
+    <footer>
+      Created by
+      <a href="github.com/tianhanl">TL</a>
+    </footer>
   </div>
 </template>
 
@@ -44,9 +46,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #515151;
-
-  margin-top: 60px;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 99vh;
+  box-sizing: border-box;
 }
+
+
 
 
 
@@ -74,6 +81,9 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
+
+
 
 
 
@@ -127,6 +137,18 @@ nav>a:hover {
   color: #A9B6C5;
 }
 
+header {
+  padding-top: 1rem;
+}
+
+footer {
+  color: #9F9F9F;
+}
+
+.sticky-main {
+  flex: 1 0 80%;
+}
+
 .blog-title {
   font-size: 2.5rem;
   margin: 0.1em;
@@ -139,7 +161,6 @@ nav>a:hover {
 
 @media (max-width: 500px) {
   .blog-title {
-    margin-top: -1rem;
     font-size: 2.5rem;
   }
 
