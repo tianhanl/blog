@@ -5,6 +5,9 @@ const mutations = {
   },
   addArticle(state, payload) {
     state.articles.push(payload.articleData);
+  },
+  changeCurrPosition(state, payload) {
+    state.currPosition = payload.currPosition;
   }
 };
 

@@ -8,9 +8,15 @@
       </p>
       <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
       <div class="article-view-return">
+
+        <router-link v-if="previousID >= 0" :to="{name: 'article', params:{id:previousID}}">Prev</router-link>
+
         <router-link to="/">
           Back
         </router-link>
+
+        <router-link v-if="nextID >= 0" :to="{name: 'article', params:{id:nextID}}">Next </router-link>
+
       </div>
     </div>
     <loading v-if="!received"></loading>
@@ -39,6 +45,12 @@ export default {
   computed: {
     articles() {
       return this.$store.state.articles;
+    },
+    previousID() {
+      return this.$store.getters.previousArticleID;
+    },
+    nextID() {
+      return this.$store.getters.nextArticleID;
     }
   },
   created: function() {
@@ -77,6 +89,10 @@ export default {
             this.received = true;
           });
       }
+      let position = this.articles.findIndex(element => element.number === id);
+      this.$store.commit('changeCurrPosition', {
+        currPosition: position
+      })
     }
   }
 }

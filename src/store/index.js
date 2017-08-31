@@ -8,11 +8,33 @@ Vue.use(Vuex);
 const state = {
   accessTime: '',
   articleList: [],
-  articles: []
+  articles: [],
+  currPosition: -1
+};
+
+const getters = {
+  previousArticleID: state => {
+    if (state.articleList.length && state.currPosition - 1 >= 0) {
+      return state.articleList[state.currPosition - 1].number;
+    } else {
+      return -1;
+    }
+  },
+  nextArticleID: state => {
+    if (
+      state.articleList.length &&
+      state.currPosition + 1 < state.articleList.length
+    ) {
+      return state.articleList[state.currPosition + 1].number;
+    } else {
+      return -1;
+    }
+  }
 };
 
 export default new Vuex.Store({
   state,
+  getters,
   mutations
   // actions
 });
