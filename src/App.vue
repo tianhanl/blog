@@ -16,7 +16,7 @@
     </transition>
     <footer>
       Created by
-      <a href="github.com/tianhanl">TL</a>
+      <a :href="profileAddress">TL</a>
     </footer>
   </div>
 </template>
@@ -70,6 +70,7 @@ export default {
 
 
 
+
 /*Transition  */
 
 .fade-enter-active,
@@ -81,6 +82,7 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
 
 
 
