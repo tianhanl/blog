@@ -1,6 +1,6 @@
 <template>
   <div>
-  
+
     <div v-if="received" class="article-view">
       <h2 class="article-view-title">{{articleTitle}}</h2>
       <p class="article-view-meta">
@@ -8,13 +8,19 @@
       </p>
       <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
       <div class="article-view-return">
+
+        <router-link v-if="previousID >= 0" :to="{name: 'article', params:{id:previousID}}">Prev</router-link>
+
         <router-link to="/">
           Back
         </router-link>
+
+        <router-link v-if="nextID >= 0" :to="{name: 'article', params:{id:nextID}}">Next </router-link>
+
       </div>
     </div>
     <loading v-if="!received"></loading>
-  
+
   </div>
 </template>
 <script>
@@ -39,9 +45,15 @@ export default {
   computed: {
     articles() {
       return this.$store.state.articles;
+    },
+    previousID() {
+      return this.$store.getters.previousArticleID;
+    },
+    nextID() {
+      return this.$store.getters.nextArticleID;
     }
   },
-  created: function () {
+  created: function() {
     this.requestArticle(this.$route.params.id);
   },
   watch: {
@@ -50,7 +62,7 @@ export default {
     }
   },
   methods: {
-    requestArticle: function (id) {
+    requestArticle: function(id) {
       if (this.articles.find(element => element.number === id)) {
         let data = this.articles.find(element => element.number === id);
         this.articleTitle = data.title;
@@ -77,6 +89,10 @@ export default {
             this.received = true;
           });
       }
+      let position = this.articles.findIndex(element => element.number === id);
+      this.$store.commit('changeCurrPosition', {
+        currPosition: position
+      })
     }
   }
 }
@@ -89,13 +105,11 @@ export default {
   margin: auto;
   position: relative;
   text-align: left;
-  padding: 1rem;
+  padding: 0 1rem 0;
 }
 
 .article-view-title {
-  font-size: 2rem;
-  margin: 0;
-  padding: 0;
+  margin: 0.5rem 0;
 }
 
 .article-view-return {
@@ -115,6 +129,10 @@ export default {
   article-view {
     padding: 0.5rem;
     width: 90%;
+  }
+
+  .article-view-title {
+    margin: 0.3rem 0;
   }
 }
 </style>
