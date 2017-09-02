@@ -9,13 +9,13 @@
       <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
       <div class="article-view-return">
 
-        <router-link v-if="previousID >= 0" :to="{name: 'article', params:{id:previousID}}">Prev</router-link>
+        <router-link :class="{disabled: previousDisable}" :to="{name: 'article', params:{id:targetPreviousID}}">Prev</router-link>
 
         <router-link to="/">
           Back
         </router-link>
 
-        <router-link v-if="nextID >= 0" :to="{name: 'article', params:{id:nextID}}">Next </router-link>
+        <router-link :class="{disabled: nextDisable}" :to="{name: 'article', params:{id:targetNextID}}">Next </router-link>
 
       </div>
     </div>
@@ -43,6 +43,9 @@ export default {
     }
   },
   computed: {
+    articleList() {
+      return this.$store.state.articleList;
+    },
     articles() {
       return this.$store.state.articles;
     },
@@ -51,6 +54,18 @@ export default {
     },
     nextID() {
       return this.$store.getters.nextArticleID;
+    },
+    previousDisable() {
+      return this.$store.getters.previousArticleID < 0;
+    },
+    nextDisable() {
+      return this.$store.getters.nextArticleID < 0;
+    },
+    targetPreviousID() {
+      return this.previousID < 0 ? this.$route.params.id : this.previousID;
+    },
+    targetNextID() {
+      return this.nextID < 0 ? this.$route.params.id : this.nextID;
     }
   },
   created: function() {
@@ -89,7 +104,7 @@ export default {
             this.received = true;
           });
       }
-      let position = this.articles.findIndex(element => element.number === id);
+      let position = this.articleList.findIndex(element => element.number === id);
       this.$store.commit('changeCurrPosition', {
         currPosition: position
       })
@@ -113,8 +128,21 @@ export default {
 }
 
 .article-view-return {
+  overflow: hidden;
   position: relative;
   float: right;
+}
+
+.article-view-return a {
+  margin-left: 1rem;
+}
+
+.article-view-return a.disabled {
+  color: #9F9F9F;
+}
+
+.article-view-return a.disabled:hover {
+  color: #9F9F9F;
 }
 
 .article-view-meta {

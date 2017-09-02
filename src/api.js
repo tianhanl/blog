@@ -3,7 +3,7 @@ import config from './config';
 
 const getArticleList = function() {
   return axios.get(
-    `https://api.github.com/repos/${config.username}/blog/issues?creator=${config.username}`
+    `https://api.github.com/repos/${config.username}/blog/issues?creator=${config.username}&sort=created`
   );
 };
 
