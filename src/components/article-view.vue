@@ -43,6 +43,9 @@ export default {
     }
   },
   computed: {
+    articleList() {
+      return this.$store.state.articleList;
+    },
     articles() {
       return this.$store.state.articles;
     },
@@ -89,7 +92,7 @@ export default {
             this.received = true;
           });
       }
-      let position = this.articles.findIndex(element => element.number === id);
+      let position = this.articleList.findIndex(element => element.number === id);
       this.$store.commit('changeCurrPosition', {
         currPosition: position
       })
@@ -115,6 +118,10 @@ export default {
 .article-view-return {
   position: relative;
   float: right;
+}
+
+.article-view-return a {
+  margin-left: 1rem;
 }
 
 .article-view-meta {

@@ -14,6 +14,7 @@ const state = {
 
 const getters = {
   previousArticleID: state => {
+    if (state.currPosition === -1) return -1;
     if (state.articleList.length && state.currPosition - 1 >= 0) {
       return state.articleList[state.currPosition - 1].number;
     } else {
@@ -21,6 +22,7 @@ const getters = {
     }
   },
   nextArticleID: state => {
+    if (state.currPosition === -1) return -1;
     if (
       state.articleList.length &&
       state.currPosition + 1 < state.articleList.length
