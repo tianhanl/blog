@@ -9,6 +9,7 @@ const state = {
   accessTime: '',
   articleList: [],
   articles: [],
+  labels: [],
   currPosition: -1
 };
 
