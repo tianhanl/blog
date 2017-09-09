@@ -13,7 +13,14 @@ const getArticle = function(id) {
   );
 };
 
+const getLabels = function() {
+  return axios.get(
+    `https://api.github.com/repos/${config.username}/blog/labels`
+  );
+};
+
 export default {
   getArticleList,
-  getArticle
+  getArticle,
+  getLabels
 };

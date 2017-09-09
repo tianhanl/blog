@@ -1,6 +1,11 @@
 <template>
   <div>
     <div v-if="received" class="list-view">
+      <ul class="list-view-label-container">
+        <li class="list-view-label-item" v-bind:style="{'background-color': '#'+label.color}" v-for="label in labels" :key="label.name">
+          <span >{{label.name}}</span>
+        </li>
+        </ul>
       <ul>
         <li class="list-view-item" v-for="article in articleList" :key="article.id">
           <P class="list-view-item-time">{{article.articleTime}}</P>
@@ -33,14 +38,37 @@ export default {
     },
     accessTime() {
       return this.$store.state.accessTime;
+    },
+    labels() {
+      return this.$store.state.labels;
     }
   },
   created() {
+
     this.getArticles();
+    this.getLabels();
   },
   methods: {
+    getLabels() {
+      API.getLabels()
+        .then(response => {
+          let labelList = response.data.map(element => {
+            return {
+              name: element.name,
+              color: element.color
+            }
+          })
+          this.$store.commit('addLabels', {
+            labels: labelList
+          })
+        })
+        .catch(error => {
+          console.log(error);
+          return;
+        });
+    },
     getArticles() {
-      if (this.$store.state.accessTime) {
+      if (this.accessTime) {
         this.received = true;
         return;
       }
@@ -76,6 +104,18 @@ export default {
   width: 80%;
   max-width: 600px;
   margin: auto;
+}
+
+.list-view-label-container {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.list-view-label-item {
+  color: HSLA(0, 0%, 32%, 1.00);
+  padding: 0.25rem 0.5rem;
+  border-radius: 10%;
 }
 
 .list-view-item {
