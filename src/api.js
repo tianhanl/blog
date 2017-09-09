@@ -21,5 +21,6 @@ const getLabels = function() {
 
 export default {
   getArticleList,
-  getArticle
+  getArticle,
+  getLabels
 };
