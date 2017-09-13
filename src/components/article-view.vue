@@ -114,12 +114,17 @@ export default {
 </script>
 
 <style>
+pre {
+  overflow-x: scroll;
+}
+
 .article-view {
   width: 80%;
   max-width: 660px;
   margin: auto;
   position: relative;
   text-align: left;
+  overflow: hidden;
   padding: 0 1rem 0;
 }
 
