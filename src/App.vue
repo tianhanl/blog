@@ -144,6 +144,7 @@ header {
 }
 
 footer {
+  padding: 0.5rem;
   color: #9F9F9F;
 }
 
