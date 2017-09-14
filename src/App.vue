@@ -140,6 +140,8 @@ nav>a:hover {
 }
 
 header {
+  height: 15vh;
+  max-height: 150px;
   padding-top: 1rem;
 }
 
@@ -154,7 +156,8 @@ footer {
 
 .blog-title {
   font-size: 2.5rem;
-  margin: 0.1em;
+  margin: 0;
+  margin-top: 5vh;
   font-weight: 100;
 }
 
@@ -164,7 +167,13 @@ footer {
 
 @media (max-width: 500px) {
   .blog-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    margin-top: 2vh;
+  }
+
+  header {
+    height: 12.5vh;
+    max-height: 120px;
   }
 
   nav>a {
