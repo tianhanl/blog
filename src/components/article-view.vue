@@ -6,7 +6,7 @@
       <p class="article-view-meta">
         Created {{articleTime}}
       </p>
-      <vue-markdown class="article-view-content" :source="articleContent"></vue-markdown>
+      <vue-markdown @rendered="highlight" class="article-view-content" :source="articleContent" ></vue-markdown>
       <div class="article-view-return">
 
         <router-link :class="{disabled: previousDisable}" :to="{name: 'article', params:{id:targetPreviousID}}">Prev</router-link>
@@ -28,6 +28,7 @@ import API from '../api';
 import VueMarkdown from 'vue-markdown';
 import moment from 'moment';
 import loading from './loading.vue';
+import 'prismjs';
 export default {
   name: 'article',
   components: {
@@ -71,12 +72,21 @@ export default {
   created: function() {
     this.requestArticle(this.$route.params.id);
   },
+  mounted: function() {
+    this.highlight();
+  }, updated: function() {
+    this.highlight();
+  },
   watch: {
     '$route'(to, from) {
       this.requestArticle(this.$route.params.id);
     }
   },
   methods: {
+    highlight: function() {
+      Prism.highlightAll();
+      console.log('highlighted');
+    },
     requestArticle: function(id) {
       if (this.articles.find(element => element.number === id)) {
         let data = this.articles.find(element => element.number === id);
@@ -114,21 +124,24 @@ export default {
 </script>
 
 <style>
+@import '../../node_modules/prismjs/themes/prism.css';
+
 pre {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .article-view {
   width: 80%;
-  max-width: 660px;
+  max-width: 740px;
   margin: auto;
   position: relative;
-  text-align: left;
   overflow: hidden;
   padding: 0 1rem 0;
+   text-align: left;
 }
 
 .article-view-title {
+  font-size: 2rem;
   margin: 0.5rem 0;
 }
 
@@ -156,12 +169,18 @@ pre {
   color: #A9B6C5;
 }
 
-.article-view-content {}
+.article-view-content {
+ 
+}
 
 @media (max-width: 500px) {
   article-view {
     padding: 0.5rem;
     width: 90%;
+  }
+
+  .article-view-title {
+    font-size: 1.75rem;
   }
 
   .article-view-title {
