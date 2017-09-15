@@ -140,7 +140,9 @@ nav>a:hover {
 }
 
 header {
+  overflow: hidden;
   height: 15vh;
+  min-height: 100px;
   max-height: 150px;
   padding-top: 1rem;
 }
@@ -173,6 +175,7 @@ footer {
 
   header {
     height: 12.5vh;
+    min-height: 80px;
     max-height: 120px;
   }
 

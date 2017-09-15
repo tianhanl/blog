@@ -85,7 +85,6 @@ export default {
   methods: {
     highlight: function() {
       Prism.highlightAll();
-      console.log('highlighted');
     },
     requestArticle: function(id) {
       if (this.articles.find(element => element.number === id)) {
