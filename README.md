@@ -21,9 +21,9 @@ Its value will be used as the title of the blog.
 Its value will be used as your GitHub username to handle link address and to retrieve data from your repository.
 
 ## Features
-- [x]Parse Markdown - with vue-markdown
-- [x]Syntax Highlighting - with prismjs
-- [] Tag System
+- [x] Parse Markdown - with vue-markdown
+- [x] Syntax Highlighting - with prismjs
+- [ ] Tag System
 
 
 ## Build Setup
