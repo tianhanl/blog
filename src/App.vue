@@ -53,24 +53,6 @@ export default {
   box-sizing: border-box;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*Transition  */
 
 .fade-enter-active,
@@ -82,23 +64,6 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -140,11 +105,7 @@ nav>a:hover {
 }
 
 header {
-  overflow: hidden;
-  height: 15vh;
-  min-height: 100px;
-  max-height: 150px;
-  padding-top: 1rem;
+    padding: 1rem;
 }
 
 footer {
@@ -158,8 +119,7 @@ footer {
 
 .blog-title {
   font-size: 2.5rem;
-  margin: 0;
-  margin-top: 5vh;
+  margin: 2rem 0 0.5rem;
   font-weight: 100;
 }
 
@@ -170,15 +130,9 @@ footer {
 @media (max-width: 500px) {
   .blog-title {
     font-size: 2rem;
-    margin-top: 2vh;
+    margin-top: 1.5rem;
+      margin-bottom: 0.25rem;
   }
-
-  header {
-    height: 12.5vh;
-    min-height: 80px;
-    max-height: 120px;
-  }
-
   nav>a {
     font-size: 1.5rem;
   }
