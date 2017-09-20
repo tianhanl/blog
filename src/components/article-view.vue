@@ -7,17 +7,10 @@
         Created {{articleTime}}
       </p>
       <vue-markdown @rendered="highlight" class="article-view-content" :source="articleContent" ></vue-markdown>
-      <div class="article-view-return">
-
-        <router-link :class="{disabled: previousDisable}" :to="{name: 'article', params:{id:targetPreviousID}}">Prev</router-link>
-
-        <router-link to="/">
-          Back
-        </router-link>
-
-        <router-link :class="{disabled: nextDisable}" :to="{name: 'article', params:{id:targetNextID}}">Next </router-link>
-
-      </div>
+      <nav class="article-view-control">
+        <router-link id="prev" :class="{disabled: previousDisable}" :to="{name: 'article', params:{id:targetPreviousID}}">Prev</router-link>
+        <router-link id="next" :class="{disabled: nextDisable}" :to="{name: 'article', params:{id:targetNextID}}">Next </router-link>
+      </nav>
     </div>
     <loading v-if="!received"></loading>
 
@@ -134,8 +127,7 @@ pre {
   max-width: 740px;
   margin: auto;
   position: relative;
-  overflow: hidden;
-  padding: 0 1rem 0;
+  padding: 0 1rem 1rem;
    text-align: left;
 }
 
@@ -144,22 +136,38 @@ pre {
   margin: 0.5rem 0;
 }
 
-.article-view-return {
-  overflow: hidden;
+.article-view-control {
   position: relative;
-  float: right;
 }
 
-.article-view-return a {
-  margin-left: 1rem;
+.article-view-control > a {
+    font-size: 1.25rem;
+    color: #F05967;
 }
 
-.article-view-return a.disabled {
+.article-view-control > a:hover {
+    color: #F07883;
+}
+
+.article-view-control a.disabled {
   color: #9F9F9F;
 }
 
-.article-view-return a.disabled:hover {
+.article-view-control a.disabled:hover {
   color: #9F9F9F;
+}
+
+#prev {
+    position: fixed;
+    left: 5%;
+    bottom: 5%;
+}
+
+#next {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+
 }
 
 .article-view-meta {
@@ -169,7 +177,24 @@ pre {
 }
 
 .article-view-content {
- 
+    overflow: hidden;
+}
+
+@media (max-width: 840px) {
+    .article-view-control {
+        padding: 1rem 0;
+        display: flex;
+        justify-content: space-between ;
+    }
+    #prev {
+        position: static;
+    }
+
+    #next {
+        position: static;
+
+    }
+
 }
 
 @media (max-width: 500px) {
@@ -177,7 +202,6 @@ pre {
     padding: 0.5rem;
     width: 90%;
   }
-
   .article-view-title {
     font-size: 1.75rem;
   }
