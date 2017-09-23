@@ -7,7 +7,7 @@ This blog will use the issues of its repository as blog articles.
 
 In list-view, it will display all the articles its owner created with their creation time.
 
-In article-view, it will display the body content of an article, and the content will be cached for quicker rendering next time.
+In article-view, it will display the body content of an article, and the content will be cached for quicker rendering next time. Click prev or back in this view will direct users to previous or next article.
 
 ## Usage
 Please change the content of config.js to let the program to display your articles.
