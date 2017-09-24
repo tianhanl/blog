@@ -1,19 +1,19 @@
 <template>
   <div>
-
-    <div v-if="received" class="article-view">
-      <h2 class="article-view-title">{{articleTitle}}</h2>
-      <p class="article-view-meta">
-        Created {{articleTime}}
-      </p>
-      <vue-markdown @rendered="highlight" class="article-view-content" :source="articleContent" ></vue-markdown>
-      <nav class="article-view-control">
-        <router-link id="prev" :class="{disabled: previousDisable}" :to="{name: 'article', params:{id:targetPreviousID}}">Prev</router-link>
-        <router-link id="next" :class="{disabled: nextDisable}" :to="{name: 'article', params:{id:targetNextID}}">Next </router-link>
-      </nav>
-    </div>
-    <loading v-if="!received"></loading>
-
+    <transition name="fade" mode="out-in">
+      <div v-if="received" class="article-view">
+        <h2 class="article-view-title">{{articleTitle}}</h2>
+        <p class="article-view-meta">
+          Created {{articleTime}}
+        </p>
+        <vue-markdown @rendered="highlight" class="article-view-content" :source="articleContent"></vue-markdown>
+        <nav class="article-view-control">
+          <router-link id="prev" :class="{disabled: previousDisable}" :to="{name: 'article', params:{id:targetPreviousID}}">Prev</router-link>
+          <router-link id="next" :class="{disabled: nextDisable}" :to="{name: 'article', params:{id:targetNextID}}">Next </router-link>
+        </nav>
+      </div>
+      <loading v-if="!received"></loading>
+    </transition>
   </div>
 </template>
 <script>
@@ -67,7 +67,8 @@ export default {
   },
   mounted: function() {
     this.highlight();
-  }, updated: function() {
+  },
+  updated: function() {
     this.highlight();
   },
   watch: {
@@ -128,7 +129,7 @@ pre {
   margin: auto;
   position: relative;
   padding: 0 1rem 1rem;
-   text-align: left;
+  text-align: left;
 }
 
 .article-view-title {
@@ -140,13 +141,13 @@ pre {
   position: relative;
 }
 
-.article-view-control > a {
-    font-size: 1.25rem;
-    color: #F05967;
+.article-view-control>a {
+  font-size: 1.25rem;
+  color: #F05967;
 }
 
-.article-view-control > a:hover {
-    color: #F07883;
+.article-view-control>a:hover {
+  color: #F07883;
 }
 
 .article-view-control a.disabled {
@@ -158,16 +159,15 @@ pre {
 }
 
 #prev {
-    position: fixed;
-    left: 5%;
-    bottom: 5%;
+  position: fixed;
+  left: 5%;
+  bottom: 5%;
 }
 
 #next {
-    position: fixed;
-    right: 5%;
-    bottom: 5%;
-
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
 }
 
 .article-view-meta {
@@ -177,24 +177,22 @@ pre {
 }
 
 .article-view-content {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 @media (max-width: 840px) {
-    .article-view-control {
-        padding: 1rem 0;
-        display: flex;
-        justify-content: space-between ;
-    }
-    #prev {
-        position: static;
-    }
+  .article-view-control {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  #prev {
+    position: static;
+  }
 
-    #next {
-        position: static;
-
-    }
-
+  #next {
+    position: static;
+  }
 }
 
 @media (max-width: 500px) {
