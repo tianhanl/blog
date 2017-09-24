@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <div v-if="received" class="list-view">
-      <ul class="list-view-label-container">
-        <li class="list-view-label-item" v-bind:style="{'background-color': '#'+label.color}" v-for="label in labels" :key="label.name">
-          <span >{{label.name}}</span>
-        </li>
-        </ul>
-      <ul>
-        <li class="list-view-item" v-for="article in articleList" :key="article.id">
-          <P class="list-view-item-time">{{article.articleTime}}</P>
-          <h3>
-            <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
-          </h3>
-        </li>
-      </ul>
-    </div>
-    <loading v-if="!received"></loading>
+  <div class="list-view">
+    <transition-group name="slide-down" tag="ul" class="list-view-label-container">
+      <li class="list-view-label-item" v-bind:style="{'background-color': '#'+label.color}" v-for="label in labels" :key="label.name">
+        <span>{{label.name}}</span>
+      </li>
+
+    </transition-group>
+    <transition-group tag="ul" name="slide">
+      <li class="list-view-item" v-for="article in articleList" :key="article.id">
+        <P class="list-view-item-time">{{article.articleTime}}</P>
+        <h3>
+          <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
+        </h3>
+      </li>
+    </transition-group>
   </div>
 </template>
 <script>
@@ -29,7 +27,6 @@ export default {
   },
   data() {
     return {
-      received: false
     }
   },
   computed: {
@@ -69,11 +66,9 @@ export default {
     },
     getArticles() {
       if (this.accessTime) {
-        this.received = true;
         return;
       }
       let today = new Date().getDate();
-      this.received = false;
       API.getArticleList()
         .then(response => {
           let list = response.data.map(element => {
@@ -84,7 +79,6 @@ export default {
               articleTime: moment(element.created_at).format('MMM YYYY')
             }
           })
-          this.received = true;
           this.$store.commit('addArticleList', {
             accessTime: today,
             articleList: list
@@ -99,6 +93,30 @@ export default {
 }
 </script>
 <style>
+.slide-down-enter-active,
+.slide-down-leave-active {
+
+  transition: all 0.5s ease-in;
+}
+
+.slide-down-enter,
+.slide-down-leave-to {
+
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 1s ease-in-out;
+}
+
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
 .list-view {
   position: relative;
   width: 80%;
