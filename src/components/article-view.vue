@@ -84,6 +84,7 @@ export default {
       if (this.articles.find(element => element.number === id)) {
         let data = this.articles.find(element => element.number === id);
         this.articleTitle = data.title;
+        document.title = this.articleTitle;
         this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
         this.articleContent = data.body;
         this.received = true;
@@ -93,6 +94,7 @@ export default {
           .then(response => {
             let data = response.data;
             this.articleTitle = data.title;
+            document.title = this.articleTitle;
             this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
             this.articleContent = data.body;
             this.received = true;
