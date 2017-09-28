@@ -3,14 +3,20 @@
 > A blog built with Vue.js and GitHub API.
 
 ## Description
-This blog will use the issues of its repository as blog articles. 
+A lightweight blog using GitHub issues to host articles.
 
-In list-view, it will display all the articles its owner created with their creation time.
+This blog framework have two major componenet, List-view and Article-view.
 
-In article-view, it will display the body content of an article, and the content will be cached for quicker rendering next time. Click prev or back in this view will direct users to previous or next article.
+1. List-view is the entry point for the blog and displays the list of articles.
+2. Article-view is the article detailed page and displays the content of an article.
+
+The routing between different pages is built with vue-router.
+
+The state management of cross page data is built with vuex.
 
 ## Usage
-Please change the content of config.js to let the program to display your articles.
+This blog framework tries to simply the process of posting article by requring least information.
+It reads data form `config.js`, and uses data provided in this file to retrive articles from user's GitHub repository.
 
 config.js requires following content:
 
