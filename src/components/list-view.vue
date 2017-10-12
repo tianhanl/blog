@@ -1,13 +1,13 @@
 <template>
   <div class="list-view">
-    <transition-group name="slide-down" tag="ul" class="list-view-label-container">
+    <transition-group name="slide" tag="ul" class="list-view-label-container">
       <li class="list-view-label-item" v-bind:style="{'background-color': '#'+label.color}" v-for="label in labels" :key="label.name">
         <span>{{label.name}}</span>
       </li>
 
     </transition-group>
-    <transition-group tag="ul" name="slide">
-      <li class="list-view-item" v-for="article in articleList" :key="article.id">
+    <transition-group name="staggerd-fade" tag="ul" :css="false" v-on:before-enter="beforeEnter" v-on:enter="enter">
+      <li class="list-view-item" v-for="(article, index) in articleList" :key="article.id" :data-index="index">
         <P class="list-view-item-time">{{article.articleTime}}</P>
         <h3>
           <router-link :to="{name: 'article', params:{id:article.number}}">{{article.title}}</router-link>
@@ -20,6 +20,8 @@
 import API from '../api';
 import moment from 'moment';
 import loading from './loading.vue';
+import anime from 'animejs';
+
 export default {
   name: 'list-view',
   components: {
@@ -88,33 +90,39 @@ export default {
           console.log(error);
           return;
         });
+    },
+    // animation related methods
+    beforeEnter: function(el) {
+    },
+    enter: function(el, done) {
+      anime({
+        targets: el,
+        opacity: [0, 1],
+        translateY: [-20, 0],
+        duration: 1000,
+        delay: function(target, index) {
+          return el.dataset.index * 300;
+        },
+        complete: done
+      });
+    },
+    leave: function(el, done) {
+
     }
+
   }
 }
 </script>
 <style>
-.slide-down-enter-active,
-.slide-down-leave-active {
-
-  transition: all 0.5s ease-in;
-}
-
-.slide-down-enter,
-.slide-down-leave-to {
-
-  opacity: 0;
-  transform: translateY(-30px);
-}
-
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .slide-enter,
 .slide-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateY(-20px);
 }
 
 .list-view {
