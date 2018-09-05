@@ -34,7 +34,7 @@ export default {
       articleTime: 'N/A',
       articleContent: 'N/A',
       received: false
-    }
+    };
   },
   computed: {
     articleList() {
@@ -66,26 +66,28 @@ export default {
     this.requestArticle(this.$route.params.id);
   },
   mounted: function() {
-    this.highlight();
+    // this.highlight();
   },
   updated: function() {
-    this.highlight();
+    // this.highlight();
   },
   watch: {
-    '$route'(to, from) {
+    $route(to, from) {
       this.requestArticle(this.$route.params.id);
     }
   },
   methods: {
     highlight: function() {
-      Prism.highlightAll();
+      this.$nextTick(() => Prism.highlightAll());
     },
     requestArticle: function(id) {
       if (this.articles.find(element => element.number === id)) {
         let data = this.articles.find(element => element.number === id);
         this.articleTitle = data.title;
         document.title = this.articleTitle;
-        this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
+        this.articleTime = moment(data.created_at, moment.ISO_8601).format(
+          'MMM DD, YYYY'
+        );
         this.articleContent = data.body;
         this.received = true;
       } else {
@@ -95,12 +97,14 @@ export default {
             let data = response.data;
             this.articleTitle = data.title;
             document.title = this.articleTitle;
-            this.articleTime = moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY');
+            this.articleTime = moment(data.created_at, moment.ISO_8601).format(
+              'MMM DD, YYYY'
+            );
             this.articleContent = data.body;
             this.received = true;
             this.$store.commit('addArticle', {
               articleData: data
-            })
+            });
           })
           .catch(error => {
             this.articleTitle = 'Oh, there is a error';
@@ -109,13 +113,15 @@ export default {
             this.received = true;
           });
       }
-      let position = this.articleList.findIndex(element => element.number === id);
+      let position = this.articleList.findIndex(
+        element => element.number === id
+      );
       this.$store.commit('changeCurrPosition', {
         currPosition: position
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style>
@@ -143,21 +149,21 @@ pre {
   position: relative;
 }
 
-.article-view-control>a {
+.article-view-control > a {
   font-size: 1.25rem;
-  color: #F05967;
+  color: #f05967;
 }
 
-.article-view-control>a:hover {
-  color: #F07883;
+.article-view-control > a:hover {
+  color: #f07883;
 }
 
 .article-view-control a.disabled {
-  color: #9F9F9F;
+  color: #9f9f9f;
 }
 
 .article-view-control a.disabled:hover {
-  color: #9F9F9F;
+  color: #9f9f9f;
 }
 
 #prev {
@@ -175,7 +181,7 @@ pre {
 .article-view-meta {
   margin: 0;
   padding: 0;
-  color: #A9B6C5;
+  color: #a9b6c5;
 }
 
 .article-view-content {
