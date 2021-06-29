@@ -14,7 +14,7 @@
     "animejs": "^2.2.0",
     "axios": "^0.19.0",
     "moment": "^2.22.2",
-    "prismjs": "^1.15.0",
+    "prismjs": "^1.24.0",
     "scrollreveal": "^3.3.6",
     "vue": "^2.5.17",
     "vue-loading-template": "^0.1.7",
