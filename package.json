@@ -16,7 +16,7 @@
     "moment": "^2.22.2",
     "prismjs": "^1.15.0",
     "scrollreveal": "^3.3.6",
-    "vue": "^2.5.17",
+    "vue": "^3.0.0",
     "vue-loading-template": "^0.1.7",
     "vue-markdown": "^2.2.4",
     "vue-router": "^2.7.0",
