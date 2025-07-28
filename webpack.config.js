@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash].js' : 'build.js',
+    filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash].js' : '[name].js',
     clean: true
   },
   module: {
@@ -39,14 +39,17 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm.js'
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ['*', '.js', '.vue', '.json'],
+    fallback: {
+      process: require.resolve('process/browser.js')
+    }
   },
   devServer: {
     historyApiFallback: true,
     hot: true,
     open: true,
     static: {
-      directory: path.join(__dirname, 'dist')
+      directory: path.join(__dirname, '.')
     }
   },
   performance: {
@@ -60,6 +63,9 @@ module.exports = {
       },
       __VUE_OPTIONS_API__: JSON.stringify(true),
       __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js'
     })
   ],
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
