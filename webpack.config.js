@@ -8,7 +8,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash].js' : 'build.js'
+    filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash].js' : 'build.js',
+    clean: true
   },
   module: {
     rules: [
@@ -27,9 +28,9 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
+        type: 'asset/resource',
+        generator: {
+          filename: '[name].[ext]?[hash]'
         }
       }
     ]
@@ -43,7 +44,10 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     hot: true,
-    open: true
+    open: true,
+    static: {
+      directory: path.join(__dirname, 'dist')
+    }
   },
   performance: {
     hints: false
@@ -53,15 +57,13 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
-      }
+      },
+      __VUE_OPTIONS_API__: JSON.stringify(true),
+      __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
     })
   ],
-  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map'
-};
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.optimization = {
-    minimize: true,
+  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
+  optimization: {
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
@@ -72,5 +74,5 @@ if (process.env.NODE_ENV === 'production') {
         }
       }
     }
-  };
-}
+  }
+};
