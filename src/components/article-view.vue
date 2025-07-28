@@ -6,7 +6,7 @@
         <p class="article-view-meta">
           Created {{articleTime}}
         </p>
-        <vue-markdown @rendered="highlight" class="article-view-content" :source="articleContent"></vue-markdown>
+        <div @rendered="highlight" class="article-view-content" v-html="renderedContent"></div>
         <nav class="article-view-control">
           <router-link id="prev" :class="{disabled: previousDisable}" :to="{name: 'article', params:{id:targetPreviousID}}">Prev</router-link>
           <router-link id="next" :class="{disabled: nextDisable}" :to="{name: 'article', params:{id:targetNextID}}">Next </router-link>
@@ -18,14 +18,13 @@
 </template>
 <script>
 import API from '../api';
-import VueMarkdown from 'vue-markdown';
+import { marked } from 'marked';
 import moment from 'moment';
 import loading from './loading.vue';
 import 'prismjs';
 export default {
   name: 'article',
   components: {
-    VueMarkdown,
     loading
   },
   data() {
@@ -60,9 +59,20 @@ export default {
     },
     targetNextID() {
       return this.nextID < 0 ? this.$route.params.id : this.nextID;
+    },
+    renderedContent() {
+      return marked(this.articleContent || '');
     }
   },
   created: function() {
+    marked.setOptions({
+      highlight: function(code, lang) {
+        if (lang && Prism.languages[lang]) {
+          return Prism.highlight(code, Prism.languages[lang], lang);
+        }
+        return code;
+      }
+    });
     this.requestArticle(this.$route.params.id);
   },
   mounted: function() {
