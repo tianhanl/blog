@@ -1,10 +1,16 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { BlogProvider } from './context/BlogContext';
 
-new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app');
+const container = document.getElementById('app');
+const root = createRoot(container);
+
+root.render(
+  <BrowserRouter>
+    <BlogProvider>
+      <App />
+    </BlogProvider>
+  </BrowserRouter>
+);

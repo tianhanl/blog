@@ -1,0 +1,91 @@
+@import '../../node_modules/prismjs/themes/prism.css';
+
+pre {
+  overflow-x: auto;
+}
+
+.article-view {
+  width: 80%;
+  max-width: 740px;
+  margin: auto;
+  position: relative;
+  padding: 0 1rem 1rem;
+  text-align: left;
+}
+
+.article-view-title {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.article-view-control {
+  position: relative;
+}
+
+.article-view-control > a {
+  font-size: 1.25rem;
+  color: #f05967;
+}
+
+.article-view-control > a:hover {
+  color: #f07883;
+}
+
+.article-view-control a.disabled {
+  color: #9f9f9f;
+}
+
+.article-view-control a.disabled:hover {
+  color: #9f9f9f;
+}
+
+#prev {
+  position: fixed;
+  left: 5%;
+  bottom: 5%;
+}
+
+#next {
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+}
+
+.article-view-meta {
+  margin: 0;
+  padding: 0;
+  color: #a9b6c5;
+}
+
+.article-view-content {
+  overflow: hidden;
+}
+
+@media (max-width: 840px) {
+  .article-view-control {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  #prev {
+    position: static;
+  }
+
+  #next {
+    position: static;
+  }
+}
+
+@media (max-width: 500px) {
+  article-view {
+    padding: 0.5rem;
+    width: 90%;
+  }
+  .article-view-title {
+    font-size: 1.75rem;
+  }
+
+  .article-view-title {
+    margin: 0.3rem 0;
+  }
+}
