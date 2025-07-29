@@ -93,10 +93,12 @@ function ListView() {
       <ul ref={listRef}>
         {articleList.map((article, index) => (
           <li key={article.id} className="list-view-item" data-index={index}>
-            <p className="list-view-item-time">{article.articleTime}</p>
             <h3>
               <Link to={`/article/${article.number}`}>{article.title}</Link>
             </h3>
+            <p className="list-view-item-meta">
+              Date: {article.articleTime} | Estimated Reading Time: 5 min | Author: TL
+            </p>
           </li>
         ))}
       </ul>
