@@ -8,9 +8,11 @@ const container = document.getElementById('app');
 const root = createRoot(container);
 
 root.render(
-  <BrowserRouter>
-    <BlogProvider>
-      <App />
-    </BlogProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <BlogProvider>
+        <App />
+      </BlogProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
