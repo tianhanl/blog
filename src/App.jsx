@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import ListView from './components/ListView';
-import ArticleView from './components/ArticleView';
+const ListView = lazy(() => import('./components/ListView'));
+const ArticleView = lazy(() => import('./components/ArticleView'));
 import config from './config';
 import './App.css';
 
@@ -31,10 +31,12 @@ function App() {
           appear
         >
           <main className="sticky-main">
-            <Routes location={location}>
-              <Route path="/" element={<ListView />} />
-              <Route path="/article/:id" element={<ArticleView />} />
-            </Routes>
+            <Suspense fallback={null}>
+              <Routes location={location}>
+                <Route path="/" element={<ListView />} />
+                <Route path="/article/:id" element={<ArticleView />} />
+              </Routes>
+            </Suspense>
           </main>
         </CSSTransition>
       </TransitionGroup>
