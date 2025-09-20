@@ -1,24 +1,22 @@
 # blog
 
-> A blog built with Vue.js and GitHub API.
+> A blog built with React and GitHub API.
 
 ## Description
 A lightweight blog using GitHub issues to host articles.
 
-This blog framework have two major componenet, List-view and Article-view.
+This blog framework has two major components, List-view and Article-view.
 
 1. List-view is the entry point for the blog and displays the list of articles.
 2. Article-view is the article detailed page and displays the content of an article.
 
-The routing between different pages is built with vue-router.
+Routing is handled by react-router-dom.
 
-The state management of cross page data is built with vuex.
+Cross-page state is provided via React Context.
 
 ## Usage
-This blog framework tries to simply the process of posting article by requring least information.
-It reads data form `config.js`, and uses data provided in this file to retrive articles from user's GitHub repository.
-
-config.js requires following content:
+This blog framework tries to simplify the process of posting articles by requiring minimal configuration.
+It reads data from `config.js`, and uses data provided in this file to retrieve articles from the user's GitHub repository.
 
 `blogTitle`
 Its value will be used as the title of the blog.
@@ -27,10 +25,10 @@ Its value will be used as the title of the blog.
 Its value will be used as your GitHub username to handle link address and to retrieve data from your repository.
 
 ## Features
-- [x] Parse Markdown - with vue-markdown
+- [x] Parse Markdown - with marked
 - [x] Syntax Highlighting - with prismjs
+- [x] Animations/Transitions - with react-transition-group
 - [ ] Tag System
-
 
 ## Build Setup
 
@@ -43,6 +41,16 @@ npm run dev
 
 # build for production with minification
 npm run build
+```
+
+## End-to-end tests
+
+```bash
+# run Cypress in headless mode
+npm run test:e2e
+
+# open Cypress runner
+npm run test:e2e:open
 ```
 
 ## Demo
