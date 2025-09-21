@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
     "react-transition-group": "^4.4.5",
-    "framer-motion": "^10.0.0"
+    "framer-motion": "^10.0.0",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

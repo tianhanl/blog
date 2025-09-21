@@ -12,7 +12,7 @@ This blog framework has two major components, List-view and Article-view.
 
 Routing is handled by react-router-dom.
 
-Cross-page state is provided via React Context.
+Cross-page state is provided via Zustand.
 
 ## Usage
 This blog framework tries to simplify the process of posting articles by requiring minimal configuration.

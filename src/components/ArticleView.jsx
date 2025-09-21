@@ -4,15 +4,19 @@ import { CSSTransition } from 'react-transition-group';
 import { marked } from 'marked';
 import moment from 'moment';
 import API from '../api';
-import { useBlog } from '../context/BlogContext';
+import { useBlogStore } from '../store/useBlogStore';
 import Loading from './Loading';
 import 'prismjs';
 import './ArticleView.css';
 
 function ArticleView() {
   const { id } = useParams();
-  const { state, dispatch, getPreviousArticleID, getNextArticleID } = useBlog();
-  const { articleList, articles } = state;
+  const articleList = useBlogStore(s => s.articleList);
+  const articles = useBlogStore(s => s.articles);
+  const setArticle = useBlogStore(s => s.setArticle);
+  const setCurrPosition = useBlogStore(s => s.setCurrPosition);
+  const getPreviousArticleID = useBlogStore(s => s.previousArticleID);
+  const getNextArticleID = useBlogStore(s => s.nextArticleID);
   
   const [articleTitle, setArticleTitle] = useState('N/A');
   const [articleTime, setArticleTime] = useState('N/A');
@@ -63,10 +67,7 @@ function ArticleView() {
         setArticleTime(moment(data.created_at, moment.ISO_8601).format('MMM DD, YYYY'));
         setArticleContent(data.body);
         setReceived(true);
-        dispatch({
-          type: 'ADD_ARTICLE',
-          payload: { articleData: data }
-        });
+        setArticle({ articleData: data });
       } catch (error) {
         setArticleTitle('Oh, there is an error');
         setArticleTime('N/A');
@@ -76,10 +77,7 @@ function ArticleView() {
     }
 
     const position = articleList.findIndex(element => element.number === articleId);
-    dispatch({
-      type: 'CHANGE_CURR_POSITION',
-      payload: { currPosition: position }
-    });
+    setCurrPosition(position);
   };
 
   const previousID = getPreviousArticleID();

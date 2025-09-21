@@ -4,13 +4,16 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import anime from 'animejs';
 import moment from 'moment';
 import API from '../api';
-import { useBlog } from '../context/BlogContext';
+import { useBlogStore } from '../store/useBlogStore';
 import Loading from './Loading';
 import './ListView.css';
 
 function ListView() {
-  const { state, dispatch } = useBlog();
-  const { articleList, accessTime, labels } = state;
+  const articleList = useBlogStore(s => s.articleList);
+  const accessTime = useBlogStore(s => s.accessTime);
+  const labels = useBlogStore(s => s.labels);
+  const setArticleList = useBlogStore(s => s.setArticleList);
+  const setLabels = useBlogStore(s => s.setLabels);
   const listRef = useRef();
 
   useEffect(() => {
@@ -38,10 +41,7 @@ function ListView() {
         name: element.name,
         color: element.color
       }));
-      dispatch({
-        type: 'ADD_LABELS',
-        payload: { labels: labelList }
-      });
+      setLabels({ labels: labelList });
     } catch (error) {
       console.log(error);
     }
@@ -59,13 +59,7 @@ function ListView() {
         title: element.title,
         articleTime: moment(element.created_at).format('MMM YYYY')
       }));
-      dispatch({
-        type: 'ADD_ARTICLE_LIST',
-        payload: {
-          accessTime: today,
-          articleList: list
-        }
-      });
+      setArticleList({ articleList: list, accessTime: today });
     } catch (error) {
       console.log(error);
     }
